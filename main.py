@@ -8,7 +8,8 @@ def exibir_menu():
     print("1. Cadastrar livros")
     print("2. Listar livros")
     print("3. Remover livro")
-    print("4. Sair")
+    print("4. Editar Livros")
+    print("5. Sair")
 
 def cadastrar_livros():
     nome = input("Digite o nome do livro: ")
@@ -57,6 +58,32 @@ def remover_livros():
         else:
             print("Digite um valor valido!")
 
+def editar_livro():
+    print("====LIVROS======")
+    if len(livros) == 0:
+        print("Nenhum livro cadastrado!")
+        return
+
+    for i, livro in enumerate(livros, start=1):
+        print(f"{i}° Livro: {livro['nome']}")
+
+    while True:
+        escolher_livro = input("Qual livro você deseja editar?")
+        if escolher_livro.isdigit():
+            escolher_livro = int(escolher_livro)
+            if escolher_livro > 0 and escolher_livro <= (len(livros)):
+                indice_livro= escolher_livro - 1
+                livro_editado = livros[indice_livro] # Associa a variável ao dicionário do livro escolhido na lista
+                novo_nome = input("Qual será o novo nome do livro??")
+                livro_editado['nome'] = novo_nome
+                print("Livro reenomeiado com sucesso!")
+                break
+            else:
+                print("Número digitado inválido!")
+
+        else:
+            print("Digite um valor valido!")
+
 while True:
     exibir_menu()
     escolha = (input("O que deseja fazer? "))
@@ -67,6 +94,8 @@ while True:
     elif escolha == "3":
         remover_livros()
     elif escolha == "4":
+        editar_livro()
+    elif escolha == "5":
         break
     else:
         print("Digite um valor valido!")
