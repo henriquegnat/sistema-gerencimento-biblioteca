@@ -1,6 +1,5 @@
 print("Bem vindo ao Sistema de Gerenciamento de Biblioteca!")
 
-
 livros = []
 
 def exibir_menu():
@@ -9,7 +8,8 @@ def exibir_menu():
     print("2. Listar livros")
     print("3. Remover livro")
     print("4. Editar Livros")
-    print("5. Sair")
+    print("5. Buscar Livros")
+    print("6. Sair")
 
 def cadastrar_livros():
     nome = input("Digite o nome do livro: ")
@@ -84,6 +84,26 @@ def editar_livro():
         else:
             print("Digite um valor valido!")
 
+
+def buscar_livro():
+    pesquisa = input("Qual livro você deseja buscar?")
+    busca = []
+    for livro in livros:
+        if pesquisa.lower() in livro['nome'].lower():
+            busca.append(livro)
+
+    if not busca:
+        print("Nenhum Livro encontrado!")
+        return
+
+    print('RESULTADOS ENCONTRADOS:')
+    for i, livro in enumerate(busca, start=1):
+
+        print(f"{i}. {livro['nome'].upper()}")
+        print("Autor:", livro["autor"])
+        print("Gênero:", livro["genero"])
+        print('--------------')
+
 while True:
     exibir_menu()
     escolha = (input("O que deseja fazer? "))
@@ -96,6 +116,8 @@ while True:
     elif escolha == "4":
         editar_livro()
     elif escolha == "5":
+        buscar_livro()
+    elif escolha == "6":
         break
     else:
         print("Digite um valor valido!")
