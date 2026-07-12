@@ -1,6 +1,16 @@
+import json
+
 print("Bem vindo ao Sistema de Gerenciamento de Biblioteca!")
 
-livros = []
+def carregar_dados():
+    try:
+        with open("livros.json", "r") as arquivo:
+            dados = json.load(arquivo)
+            return dados
+    except:
+        return []
+
+livros = carregar_dados()
 
 def exibir_menu():
     print("====MENU====")
@@ -29,7 +39,6 @@ def listar_livros():
     else:
         print("====LIVROS====")
         for i, livro in enumerate(livros, start=1):
-            print('--------------')
             print(f"{i}. {livro['nome'].upper()}")
             print("Autor:", livro["autor"])
             print("Gênero:", livro["genero"])
@@ -104,6 +113,12 @@ def buscar_livro():
         print("Gênero:", livro["genero"])
         print('--------------')
 
+
+def salvar_dados():
+    with open("livros.json", "w") as arquivo:
+        json.dump(livros, arquivo)
+
+
 while True:
     exibir_menu()
     escolha = (input("O que deseja fazer? "))
@@ -118,6 +133,7 @@ while True:
     elif escolha == "5":
         buscar_livro()
     elif escolha == "6":
+        salvar_dados()
         break
     else:
         print("Digite um valor valido!")
