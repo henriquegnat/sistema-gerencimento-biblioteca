@@ -10,6 +10,7 @@ def carregar_dados():
             return dados
     except:
         return []
+
 livros = carregar_dados()
 
 def verificar_livros():
@@ -20,17 +21,17 @@ def verificar_livros():
 
 def escolher_livro():
     while True:
-        escolher_livro = input("Qual livro você deseja emprestar? ")
+        escolher_livro = input("Qual livro você deseja selecionar? ")
         if escolher_livro.isdigit():
             escolher_livro = int(escolher_livro)
             if escolher_livro > 0 and escolher_livro <= (len(livros)):  # entre 1 e o numero de livros da lista
                 indice_livro = escolher_livro - 1
                 livro_emprestado = livros[indice_livro]
+                return livro_emprestado
             else:
                 print("Número digitado inválido!")
         else:
             print("Número digitado inválido!")
-        return livro_emprestado
 
 
 
@@ -42,25 +43,27 @@ def exibir_menu():
     print("4. Editar Livros")
     print("5. Buscar Livros")
     print("6. Emprestar Livros")
-    print("7. Sair")
+    print("7. Devolver Livros")
+    print("8. Salvar e Sair")
 
 def cadastrar_livros():
     nome = input("Digite o nome do livro: ")
     autor = input("Digite o autor do livro: ")
     genero = input("Digite o genero do livro: ")
-    copias_disponiveis = input("Digite o número de cópias disponíveis do livro: ")
+    copias_totais = input("Digite o número de cópias totais do livro: ")
     while True:
-        if copias_disponiveis.isdigit():
+        if copias_totais.isdigit():
             livro = {}
             livro["nome"] = nome
             livro["autor"] = autor
             livro["genero"] = genero
-            livro["copias_disponiveis"] = int(copias_disponiveis)
+            livro["copias_totais"] = int(copias_totais)
+            livro["copias_disponiveis"] = int(copias_totais)
             livros.append(livro)
             break
         else:
             print("Digite um número!")
-            copias_disponiveis = input("Digite o número de cópias disponíveis do livro: ")
+            copias_totais = input("Digite o número de cópias totais do livro: ")
 
 def listar_livros():
     if verificar_livros():
@@ -69,7 +72,7 @@ def listar_livros():
             print(f"{i}. {livro['nome'].upper()}")
             print("Autor:", livro["autor"])
             print("Gênero:", livro["genero"])
-            print("Cópias Disponiveis:", livro["copias_disponiveis"])
+            print("Cópias:", livro["copias_disponiveis"],"/",livro["copias_totais"], "disponíveis no momento!")
             print('--------------')
 
 def remover_livros():
@@ -79,7 +82,6 @@ def remover_livros():
         livro = escolher_livro()
         livros.pop(livros.index(livro))
         print("Livro removido com sucesso!")
-
 
 
 def editar_livro():
@@ -112,6 +114,7 @@ def buscar_livro():
             print(f"{i}. {livro['nome'].upper()}")
             print("Autor:", livro["autor"])
             print("Gênero:", livro["genero"])
+            print("Cópias:", livro["copias_disponiveis"],"/",livro["copias_totais"], "disponíveis no momento!")
             print('--------------')
 
 def salvar_dados():
@@ -123,20 +126,23 @@ def emprestar_livro():
     if verificar_livros():
         listar_livros()
         livro = escolher_livro()
-        while True:
-            if livro["copias_disponiveis"] == 0:
-                print("Livro não disponível para empréstimo!")
 
-            else:
-                livro["copias_disponiveis"] = livro["copias_disponiveis"] - 1
-                print("Livro Emprestado com Sucesso!")
-                break
+        if livro["copias_disponiveis"] == 0: print("Livro não disponível para empréstimo!")
+        else: livro["copias_disponiveis"] = livro["copias_disponiveis"] - 1; print("Livro Emprestado com Sucesso!")
+
 
 
 
 def devolver_livro():
     if verificar_livros():
         listar_livros()
+
+        livro = escolher_livro()
+        if livro["copias_disponiveis"] < (livro["copias_totais"]):
+            livro["copias_disponiveis"] = livro["copias_disponiveis"] + 1
+            print("Livro Devolvido com Sucesso!")
+        else:
+            print("\nEsse livro não pode ser devolvido!")
 
 
 while True:
@@ -155,6 +161,8 @@ while True:
     elif escolha == "6":
         emprestar_livro()
     elif escolha == "7":
+        devolver_livro()
+    elif escolha == "8":
         salvar_dados()
         break
     else:
