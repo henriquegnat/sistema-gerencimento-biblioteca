@@ -21,13 +21,15 @@ def verificar_livros():
 
 def escolher_livro():
     while True:
-        escolher_livro = input("Qual livro você deseja selecionar? ")
+        escolher_livro = input("Qual livro você deseja selecionar? (Se deseja voltar, digite 0) ")
         if escolher_livro.isdigit():
             escolher_livro = int(escolher_livro)
             if escolher_livro > 0 and escolher_livro <= (len(livros)):  # entre 1 e o numero de livros da lista
                 indice_livro = escolher_livro - 1
                 livro_emprestado = livros[indice_livro]
                 return livro_emprestado
+            elif escolher_livro == 0:
+                return None
             else:
                 print("Número digitado inválido!")
         else:
@@ -80,20 +82,79 @@ def remover_livros():
         listar_livros()
 
         livro = escolher_livro()
-        livros.pop(livros.index(livro))
-        print("Livro removido com sucesso!")
-
+        if livro:
+            livros.pop(livros.index(livro))
+            print("Livro removido com sucesso!")
 
 def editar_livro():
     if verificar_livros():
         listar_livros()
-
         livro = escolher_livro()
 
-        novo_nome = input("Qual será o novo nome do livro? ")
-        livro['nome'] = novo_nome
-        print("Livro reenomeiado com sucesso!")
+        if livro:
+            while True:
+                print("1. Nome"
+                      "\n2. Autor"
+                      "\n3. Genero"
+                      "\n4. Cópias Totais"
+                      "\n5. Escolher outro livro"
+                      "\n0. Voltar para o menu")
+                escolha_livro = input("Digite o que você deseja mudar! ")
 
+                if escolha_livro.isdigit() and '1' <= escolha_livro <= '4':
+                    if escolha_livro == '1':
+                        novo_nome = input("Qual será o novo nome do livro? ")
+                        livro['nome'] = novo_nome
+                        print("Livro reenomeiado com sucesso!")
+                        break
+
+                    elif escolha_livro == '2':
+                        novo_autor = input("Qual será o novo nome do autor? ")
+                        livro['autor'] = novo_autor
+                        print("Autor reenomeiado com sucesso!")
+                        break
+
+                    elif escolha_livro == '3':
+                        novo_genero = input("Qual será o gênero do livro? ")
+                        livro['genero'] = novo_genero
+                        print("Gênero reenomeiado com sucesso!")
+                        break
+
+                    elif escolha_livro == '4': #colocar verificao de numero de copias!!
+                        novo_copias = input("Qual será a nova quantidade de cópias totais do livro? ")
+                        if novo_copias.isdigit(): #verificando se novo_copias é número
+                            novo_copias = int(novo_copias)
+                            emprestimos = livro['copias_totais'] - livro["copias_disponiveis"]
+
+                            if novo_copias > livro['copias_totais']:
+                                livro['copias_disponiveis'] = livro['copias_disponiveis'] + (novo_copias - livro['copias_totais'])
+                                livro['copias_totais'] = novo_copias
+                                print("Cópias Totais alteradas com sucesso!")
+                                break
+
+                            elif int(novo_copias) < livro['copias_totais']:
+                                if int(novo_copias) < emprestimos:
+                                    print('\nEssa ação não pode ser feita!\n'
+                                          'Por favor digite um número válido\n')
+                                livro['copias_disponiveis'] = livro['copias_disponiveis'] - ( livro['copias_totais'] - novo_copias)
+                                livro['copias_totais'] = novo_copias
+                                print("Cópias Totais alteradas com sucesso!")
+                                break
+
+                            else:
+                                print('o Novo Número de Cópias é igual ao existente!'
+                                      '\nPor Favor, tente novamente!')
+
+
+                elif escolha_livro == '5':
+                    listar_livros()
+                    escolher_livro()
+
+                elif escolha_livro == '0':
+                    break
+
+                else:
+                    print("Digite um número válido!")
 
 
 def buscar_livro():
@@ -127,10 +188,9 @@ def emprestar_livro():
         listar_livros()
         livro = escolher_livro()
 
-        if livro["copias_disponiveis"] == 0: print("Livro não disponível para empréstimo!")
-        else: livro["copias_disponiveis"] = livro["copias_disponiveis"] - 1; print("Livro Emprestado com Sucesso!")
-
-
+        if livro:
+            if livro["copias_disponiveis"] == 0: print("Livro não disponível para empréstimo!")
+            else: livro["copias_disponiveis"] = livro["copias_disponiveis"] - 1; print("Livro Emprestado com Sucesso!")
 
 
 def devolver_livro():
