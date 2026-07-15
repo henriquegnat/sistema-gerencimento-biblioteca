@@ -29,5 +29,44 @@ def remover_usuarios():
         listar_usuarios()
         usuario = escolher_usuario()
         if usuario:
-            usuarios.pop(usuario.index(usuario))
+            usuarios.pop(usuarios.index(usuario))
             print("\nLivro removido com sucesso!")
+
+def editar_usuario():
+    limpar_terminal()
+    if verificar_usuarios():
+        listar_usuarios()
+        usuario = escolher_usuario()
+
+        if usuarios:
+            while True:
+                print("\n. Nome"
+                      "\n2. Autor"
+                      "\n3. Genero"
+                      "\n0. Voltar para o menu")
+                escolha_usuario = input("\nDigite o que você deseja mudar! ")
+
+                if escolha_usuario.isdigit() and '1' <= escolha_usuario <= '3':
+                    if escolha_usuario == '1':
+                        novo_nome = input("Qual será o novo nome do livro? ")
+                        usuario['nome'] = novo_nome
+                        print("Usuário reenomeiado com sucesso!")
+                        break
+
+                    elif escolha_usuario == '2':
+                        novo_cpf = input("Qual será o novo CPF do usuário? ")
+                        usuario['cpf'] = novo_cpf
+                        print("CPF auterado com sucesso! com sucesso!")
+                        break
+
+                    elif escolha_usuario == '3':
+                        novo_data_nascimento = input("Qual será a nova data de nascimento do usuário? ")
+                        usuario['data_nascimento'] = novo_data_nascimento
+                        print("Data de Nascimento alterada com sucesso!")
+                        break
+
+                    elif escolha_usuario == '0':
+                        break
+
+                else:
+                    print("Digite um número válido!")

@@ -29,7 +29,7 @@ def listar_livros():
             print("Autor:", livro["autor"])
             print("Gênero:", livro["genero"])
             print("Cópias:", livro["copias_disponiveis"],"/",livro["copias_totais"], "disponíveis no momento!")
-            print('--------------')
+            print('--------------') 
 
 def remover_livros():
     limpar_terminal()

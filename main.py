@@ -9,10 +9,13 @@ while True:
     exibir_menuPrincipal()
     escolha = (input("\nO que deseja fazer? "))
     if escolha == "1":
+        limpar_terminal()
         exibir_menuLivros()
     elif escolha == "2":
+        limpar_terminal()
         exibir_menuUsuarios()
     elif escolha == "3":
+        limpar_terminal
         exibir_menuEmprestimos()
     elif escolha == "0":
         salvar_dados()

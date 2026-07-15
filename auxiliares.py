@@ -21,33 +21,33 @@ def escolher_livro():
 def verificar_livros():
     if len(livros) == 0:
         print("\nNenhum livro cadastrado!")
-        limpar_terminal()
         return False
     return True
 
 def verificar_usuarios():
     if len(usuarios) == 0:
         print("\nNenhum usuario cadastrado!")
-        limpar_terminal()
         return False
     return True
 
 def escolher_usuario():
-    limpar_terminal()
     while True:
-        escolher_usuario = input("\nQual usuário você deseja selecionar? (Se deseja voltar, digite 0) ")
-        if escolher_usuario.isdigit():
-            escolher_usuario = int(escolher_usuario)
-            if escolher_usuario > 0 and escolher_usuario <= (len(livros)):  # entre 1 e o numero de livros da lista
-                indice_usuario = escolher_usuario - 1
+        escolha_usuario = input("\nQual usuário você deseja selecionar? (Se deseja voltar, digite 0) ")
+        if escolha_usuario.isdigit():
+            escolha_usuario = int(escolha_usuario)
+            print(escolha_usuario)
+            if escolha_usuario > 0 and escolha_usuario <= (len(usuarios)):      #entre 1 e o numero de livros da lista
+                indice_usuario = escolha_usuario - 1
                 usuario_escolhido = usuarios[indice_usuario]
                 return usuario_escolhido
             elif escolher_livro == 0:
                 return None
             else:
-                print("Número digitado inválido!")
+                print("Número digitado inválido!!me a")
         else:
-            print("Número digitado inválido!")
+            print("Número digitado inválido! oie")
+
+
 def limpar_terminal():
     os.system("cls") # comando pro windows ou linux/mac
 

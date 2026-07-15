@@ -1,7 +1,7 @@
 from livros import cadastrar_livros,listar_livros,remover_livros,editar_livro,buscar_livro
-from usuarios import cadastrar_usuarios, listar_usuarios
+from usuarios import cadastrar_usuarios, listar_usuarios, remover_usuarios, editar_usuario
 from emprestimos import emprestar_livro, devolver_livro
-
+from auxiliares import limpar_terminal
 
 def exibir_menuPrincipal():
     print("\n====MENU PRINCIPAL====")
@@ -24,6 +24,7 @@ def exibir_menuLivros():
         if escolha_livro == '1':
             cadastrar_livros()
         if escolha_livro == '2':
+            limpar_terminal()
             listar_livros()
         if escolha_livro == '3':
             remover_livros()
@@ -36,6 +37,7 @@ def exibir_menuLivros():
 
 
 def exibir_menuUsuarios():
+    limpar_terminal()
     while True:
         print("\n===USUARIOS====")
         print("1. Cadastrar Usuários")
@@ -49,9 +51,10 @@ def exibir_menuUsuarios():
         if escolha_usuario == '1':
             cadastrar_usuarios()
         if escolha_usuario == '2':
+            limpar_terminal()
             listar_usuarios()
         if escolha_usuario == '3':
-            remover_livros()
+            remover_usuarios()
         if escolha_usuario == '4':
             editar_livro()
         if escolha_usuario == '5':
